@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulir Wawancara &amp; Evaluasi UAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-page: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --text-main: #0f172a;
+      --text-secondary: #475569;
+      --border-gray: #cbd5e1;
+      --border-light: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #e2e8f0 0%, var(--bg-page) 260px);
+      margin: 0;
+      padding: 36px 16px 60px;
+      color: var(--text-main);
+    }
+
+    .wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .header-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+      color: #ffffff;
+      padding: 28px 32px;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-card h1 {
+      margin: 0 0 6px;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .header-card p {
+      margin: 0;
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      border-radius: 0 0 14px 14px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+      border: 1px solid var(--border-light);
+      border-top: none;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--primary-dark);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .section-title .num {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .section-spacer {
+      margin-top: 34px;
+    }
+
+    .identity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 20px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label.field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 13px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+      transition: all 0.18s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.14);
+    }
+
+    textarea {
+      min-height: 74px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .question-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .pill-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-option input[type="radio"] {
+      display: none;
+    }
+
+    .pill-option span {
+      display: inline-block;
+      padding: 6px 15px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: #ffffff;
+      border: 1px solid var(--border-gray);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .pill-option input[type="radio"]:checked + span {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.28);
+    }
+
+    .actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    .btn-ghost {
+      background: #f1f5f9;
+      color: var(--text-secondary);
+      border-color: var(--border-gray);
+    }
+
+    .status-toast {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .info-banner {
+      margin-top: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--border-gray);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 640px) {
+      .identity-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-card, .header-card {
+        padding: 22px 18px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .header-card {
+        background: #1e3a8a !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        border-radius: 8px 8px 0 0;
+      }
+      .form-card {
+        box-shadow: none;
+        border: 1px solid #cbd5e1;
+      }
+      .question-box {
+        break-inside: avoid;
+      }
+      .actions-bar, .info-banner {
+        display: none;
+      }
+      .pill-option input[type="radio"]:checked + span {
+        background: #1d4ed8 !important;
+        color: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header-card">
+      <div>
+        <h1>Formulir Wawancara &amp; UAT</h1>
+        <p>User Acceptance Testing &amp; Evaluasi Pengalaman Pengguna</p>
+      </div>
+      <span class="badge">QA Documentation</span>
+    </div>
+
+    <form id="uatForm" class="form-card">
+      <div class="section-title">
+        <span class="num">1</span>
+        <span>Identitas Penguji &amp; Responden</span>
+      </div>
+
+      <div class="identity-grid">
+        <div class="field-group">
+          <label class="field-label" for="nama_penguji">Nama Penguji</label>
+          <input type="text" id="nama_penguji" name="nama_penguji" placeholder="Nama lengkap penguji (QA)" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="tanggal_wawancara">Tanggal Wawancara</label>
+          <input type="date" id="tanggal_wawancara" name="tanggal_wawancara" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="nama_responden">Nama Responden</label>
+          <input type="text" id="nama_responden" name="nama_responden" placeholder="Nama pengguna akhir" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="peran_responden">Peran Responden</label>
+          <select id="peran_responden" name="peran_responden">
+            <option value="">-- Pilih peran --</option>
+            <option value="Admin / Pemilik">Admin / Pemilik</option>
+            <option value="Kasir / Operator">Kasir / Operator</option>
+            <option value="Apoteker / Staf">Apoteker / Staf</option>
+            <option value="Pengguna Akhir Lainnya">Pengguna Akhir Lainnya</option>
+          </select>
+        </div>
+
+        <div class="field-group full-width">
+          <label class="field-label" for="skenario_uat">Skenario UAT</label>
+          <select id="skenario_uat" name="skenario_uat">
+            <option value="">-- Pilih skenario pengujian --</option>
+            <option value="Skenario 1: Login & Navigasi">Skenario 1: Login &amp; Navigasi</option>
+            <option value="Skenario 2: Input & Pencarian Data">Skenario 2: Input &amp; Pencarian Data</option>
+            <option value="Skenario 3: Transaksi & Mutasi">Skenario 3: Transaksi &amp; Mutasi</option>
+            <option value="Skenario 4: Laporan & Cetak">Skenario 4: Laporan &amp; Cetak</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-title section-spacer">
+        <span class="num">2</span>
+        <span>Pertanyaan Wawancara</span>
+      </div>
+
+      <div id="questionsContainer"></div>
+
+      <div class="section-title section-spacer">
+        <span class="num">3</span>
+        <span>Kesimpulan &amp; Rekomendasi</span>
+      </div>
+
+      <div class="identity-grid">
+        <div class="field-group full-width">
+          <label class="field-label" for="keputusan_uat">Keputusan UAT</label>
+          <select id="keputusan_uat" name="keputusan_uat">
+            <option value="">-- Pilih keputusan akhir --</option>
+            <option value="Diterima (Pass)">Diterima (Pass)</option>
+            <option value="Diterima dengan Catatan">Diterima dengan Catatan</option>
+            <option value="Ditolak / Perlu Perbaikan">Ditolak / Perlu Perbaikan</option>
+          </select>
+        </div>
+
+        <div class="field-group full-width">
+          <label class="field-label" for="saran_perbaikan">Saran Perbaikan</label>
+          <textarea id="saran_perbaikan" name="saran_perbaikan" placeholder="Tuliskan saran atau masukan dari responden..."></textarea>
+        </div>
+      </div>
+
+      <div class="actions-bar">
+        <div class="btn-group">
+          <button type="button" class="btn-primary" id="btnSimpan">Simpan Data</button>
+          <button type="button" class="btn-secondary" id="btnCetak">Cetak Formulir Ini</button>
+          <button type="button" class="btn-ghost" id="btnReset">Reset</button>
+        </div>
+        <span class="status-toast" id="statusMsg"></span>
+      </div>
+    </form>
+
+    <div class="info-banner">
+      <strong>Petunjuk:</strong> Isi formulir di atas, klik <strong>Simpan Data</strong> untuk menyimpan ke penyimpanan browser (<code>localStorage</code>), lalu klik <strong>Cetak Formulir Ini</strong> untuk mencetak atau menyimpan sebagai PDF. Data akan dipulihkan otomatis saat halaman dibuka kembali.
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'form_wawancara_uat_blue_gray_v1';
+    const questions = [
+      { id: 'q1', text: '1. Apakah fitur dapat diakses dengan mudah?' },
+      { id: 'q2', text: '2. Apakah hasil sesuai dengan kebutuhan?' },
+      { id: 'q3', text: '3. Apakah tampilan mudah dipahami?' },
+      { id: 'q4', text: '4. Apakah performa sistem memadai?' },
+      { id: 'q5', text: '5. Apakah sistem layak digunakan?' }
+    ];
+
+    const qContainer = document.getElementById('questionsContainer');
+    questions.forEach((q, idx) => {
+      const num = idx + 1;
+      qContainer.insertAdjacentHTML('beforeend', `
+        <div class="question-box">
+          <div class="question-header">
+            <span class="question-text">${q.text}</span>
+            <div class="pill-group">
+              ${['Ya', 'Tidak', 'Sebagian'].map(opt => `
+                <label class="pill-option">
+                  <input type="radio" name="${q.id}" value="${opt}" />
+                  <span>${opt}</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+          <textarea id="catatan_${q.id}" name="catatan_${q.id}" placeholder="Catatan Q${num} dari responden..."></textarea>
+        </div>
+      `);
+    });
+
+    const form = document.getElementById('uatForm');
+    const statusMsg = document.getElementById('statusMsg');
+
+    function showStatus(text) {
+      statusMsg.textContent = text;
+      clearTimeout(window._statusTimer);
+      window._statusTimer = setTimeout(() => {
+        statusMsg.textContent = '';
+      }, 3500);
+    }
+
+    function simpanData() {
+      const data = {};
+      new FormData(form).forEach((val, key) => {
+        data[key] = val;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showStatus('✓ Tersimpan di browser');
+    }
+
+    function muatData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      Object.entries(data).forEach(([key, val]) => {
+        const els = form.querySelectorAll(`[name="${key}"]`);
+        els.forEach(el => {
+          if (el.type === 'radio') {
+            el.checked = (el.value === val);
+          } else {
+            el.value = val;
+          }
+        });
+      });
+      showStatus('✓ Data sebelumnya dipulihkan');
+    }
+
+    document.getElementById('btnSimpan').addEventListener('click', simpanData);
+    document.getElementById('btnCetak').addEventListener('click', () => {
+      simpanData();
+      window.print();
+    });
+    document.getElementById('btnReset').addEventListener('click', () => {
+      if (confirm('Hapus semua isian formulir dan data tersimpan?')) {
+        form.reset();
+        localStorage.removeItem(STORAGE_KEY);
+        showStatus('Formulir telah direset');
+      }
+    });
+
+    muatData();
+  </script>
+</body>
+</html>
